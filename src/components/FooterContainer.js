@@ -1,7 +1,10 @@
-export default function FooterContainer() {
+export default function FooterContainer(props) {
+    const { perguntas, contador } = props
+
+
     return (
         <div className="footer-concluidos">
-            0/8 concluídos
+            {contador}/{perguntas.length} concluídos
         </div>
     )
 

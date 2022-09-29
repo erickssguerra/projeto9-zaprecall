@@ -6,10 +6,13 @@
 import FlashCard from "./FlashCard"
 import perguntas from "./perguntas"
 
-export default function PerguntasContainer() {
+export default function PerguntasContainer({ setContador, contador }) {
+
     return (
         <>
             {perguntas.map((p, i) => <FlashCard
+                setContador={setContador}
+                contador={contador}
                 tituloProp={p.titulo}
                 questaoProp={p.questao}
                 respostaProp={p.resposta}

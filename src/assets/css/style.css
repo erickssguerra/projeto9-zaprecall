@@ -22,6 +22,10 @@
   width: 52px;
 }
 
+.escondido {
+  display: none;
+}
+
 .logo-container h1 {
   font-family: 'Righteous';
   font-style: normal;
@@ -77,7 +81,7 @@
   text-decoration: line-through;
 }
 
-.errad>p {
+.errada>p {
   color: #FF3030;
   text-decoration: line-through;
 }
