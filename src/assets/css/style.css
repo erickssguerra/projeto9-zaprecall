@@ -64,6 +64,7 @@
 
 .pergunta-fechada>img {
   height: 20px;
+  cursor: pointer;
 }
 
 .correta>p {
@@ -105,6 +106,7 @@
   position: absolute;
   bottom: 10px;
   right: 10px;
+  cursor: pointer;
 }
 
 .footer-concluidos {
@@ -124,11 +126,12 @@
   padding: 10px;
 }
 
-.footer-concluidos>.container-botoes {
+.container-botoes {
   display: flex;
   width: 90%;
   justify-content: space-between;
-  margin: 20px;
+  margin: 0px auto;
+  gap: 10px;
 }
 
 .container-botoes>button {
@@ -145,6 +148,11 @@
   color: #FFFFFF;
   border-radius: 5px;
   padding: 5px;
+  cursor: pointer;
+}
+
+.container-botoes>button:hover {
+  filter: brightness(70%);
 }
 
 .botao-errado {

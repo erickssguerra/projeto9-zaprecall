@@ -8,3 +8,5 @@ const perguntas = [
     { titulo: "Pergunta 7", questao: "Usamos props para __", resposta: "passar diferentes informações para componentes " },
     { titulo: "Pergunta 8", questao: "Usamos estado (state) para __", resposta: "dizer para o React quais informações quando atualizadas devem renderizar a tela novamente" }
 ]
+
+export default perguntas
