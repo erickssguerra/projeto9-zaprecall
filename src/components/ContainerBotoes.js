@@ -6,7 +6,7 @@ import styled from "styled-components"
 export default function ContainerBotoes(props) {
     const {
         setImagemFlashCard,
-        setTextoPergunta,
+        setTextoFlashCard,
         setStatusFlashCard,
         setStatusResposta,
         setEstiloResposta,
@@ -17,28 +17,24 @@ export default function ContainerBotoes(props) {
     } = props
 
     function enviarResposta(resposta, booleano) {
-        setTextoPergunta(tituloProp);
+        setTextoFlashCard(tituloProp);
         setBotoes(booleano);
         setContador(contador + 1);
+        setStatusFlashCard("fechado");
+        setStatusResposta("respondida")
 
         switch (resposta) {
             case "errado":
                 setEstiloResposta("#FF3030");
                 setImagemFlashCard(icone_erro);
-                setStatusFlashCard("fechado");
-                setStatusResposta("respondida")
                 break;
             case "quase":
                 setEstiloResposta("#FF922E");
                 setImagemFlashCard(icone_quase);
-                setStatusFlashCard("fechado");
-                setStatusResposta("respondida")
                 break;
             case "zap":
                 setEstiloResposta("#2FBE34");
                 setImagemFlashCard(icone_certo);
-                setStatusFlashCard("fechado");
-                setStatusResposta("respondida")
                 break;
 
             default:

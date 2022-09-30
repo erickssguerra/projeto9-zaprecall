@@ -2,7 +2,6 @@ import { useState } from "react"
 import FooterContainer from "./FooterContainer"
 import LogoContainer from "./LogoContainer"
 import FlashCardsContainer from "./FlashCardsContainer"
-import perguntas from "./perguntas"
 import styled from "styled-components"
 
 export default function ScreenContainer() {
@@ -11,7 +10,7 @@ export default function ScreenContainer() {
         <ScreenContainerStyled >
             <LogoContainer />
             <FlashCardsContainer contador={contador} setContador={setContador} />
-            <FooterContainer perguntas={perguntas} contador={contador} />
+            <FooterContainer contador={contador} />
         </ScreenContainerStyled>
     )
 }

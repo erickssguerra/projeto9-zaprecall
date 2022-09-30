@@ -1,7 +1,9 @@
 import styled from "styled-components"
 
+import perguntas from "./perguntas"
+
 export default function FooterContainer(props) {
-    const { perguntas, contador } = props
+    const { contador } = props
 
     return (
         <FooterContainerStyled>

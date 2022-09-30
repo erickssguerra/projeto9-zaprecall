@@ -1,6 +1,5 @@
 import { useState } from "react"
 import styled from "styled-components"
-
 import seta_play from "../assets/img/seta_play.png"
 import seta_virar from "../assets/img/seta_virar.png"
 import ContainerBotoes from "./ContainerBotoes"
@@ -9,7 +8,7 @@ export default function FlashCard(props) {
     const { tituloProp, questaoProp, respostaProp, setContador, contador } = props
 
     const [imagemFlashCard, setImagemFlashCard] = useState(seta_play);
-    const [textoPergunta, setTextoPergunta] = useState(tituloProp);
+    const [textoFlashCard, setTextoFlashCard] = useState(tituloProp);
     const [statusOnClick, setStatusOnClick] = useState(() => abrirPergunta);
     const [botoes, setBotoes] = useState(false);
     const [statusFlashCard, setStatusFlashCard] = useState("fechado");
@@ -18,14 +17,14 @@ export default function FlashCard(props) {
 
     function abrirPergunta() {
         setImagemFlashCard(seta_virar);
-        setTextoPergunta(questaoProp);
+        setTextoFlashCard(questaoProp);
         setStatusOnClick(() => abrirResposta);
         setStatusFlashCard("aberto");
     }
     function abrirResposta() {
         setImagemFlashCard();
+        setTextoFlashCard(respostaProp);
         setStatusOnClick();
-        setTextoPergunta(respostaProp);
         setBotoes(true);
     }
 
@@ -35,7 +34,7 @@ export default function FlashCard(props) {
             statusFlashCard={statusFlashCard}
             statusResposta={statusResposta}
             estiloResposta={estiloResposta}>
-            <p>{textoPergunta}</p>
+            <p>{textoFlashCard}</p>
             <img onClick={statusOnClick}
                 src={imagemFlashCard}
                 alt={imagemFlashCard} />
@@ -46,7 +45,7 @@ export default function FlashCard(props) {
                     setStatusFlashCard={setStatusFlashCard}
                     setStatusResposta={setStatusResposta}
                     setImagemFlashCard={setImagemFlashCard}
-                    setTextoPergunta={setTextoPergunta}
+                    setTextoFlashCard={setTextoFlashCard}
                     setEstiloResposta={setEstiloResposta}
                     tituloProp={tituloProp}
                     setBotoes={setBotoes}
@@ -76,7 +75,7 @@ const FlashCardStyled = styled.div`
         font-style: normal;
         text-decoration:  ${({ statusResposta }) => (statusResposta === "nao-respondida" ? "none" : "line-through")};
         font-weight: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "700" : "400")};
-        font-size: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "16px" : "18px")}; 
+        font-size: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "16px" : "18px")};
         line-height: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "19px" : "22px")}; 
         color: ${({ estiloResposta }) => estiloResposta};
     }
@@ -87,7 +86,6 @@ const FlashCardStyled = styled.div`
         bottom: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "inherit" : "10px")}; 
         right: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "inherit" : "10px")};
     }
-
 `
 const ContainerBotoesStyled = styled.div`
 
