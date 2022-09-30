@@ -1,4 +1,5 @@
 import { useState } from "react"
+import styled from "styled-components"
 
 import seta_play from "../assets/img/seta_play.png"
 import seta_virar from "../assets/img/seta_virar.png"
@@ -7,70 +8,114 @@ import ContainerBotoes from "./ContainerBotoes"
 export default function FlashCard(props) {
     const { tituloProp, questaoProp, respostaProp, setContador, contador } = props
 
-    const [classePergunta, setClassePergunta] = useState("pergunta-fechada");
-    const [imagemPergunta, setImagemPergunta] = useState(seta_play);
+    const [imagemFlashCard, setImagemFlashCard] = useState(seta_play);
     const [textoPergunta, setTextoPergunta] = useState(tituloProp);
     const [statusOnClick, setStatusOnClick] = useState(() => abrirPergunta);
-    const [botoes, setBotoes] = useState("escondido");
-
+    const [botoes, setBotoes] = useState(false);
+    const [statusFlashCard, setStatusFlashCard] = useState("fechado");
+    const [statusResposta, setStatusResposta] = useState("nao-respondida");
+    const [estiloResposta, setEstiloResposta] = useState("#333333")
 
     function abrirPergunta() {
-        setClassePergunta("pergunta-aberta");
-        setImagemPergunta(seta_virar);
+        setImagemFlashCard(seta_virar);
         setTextoPergunta(questaoProp);
         setStatusOnClick(() => abrirResposta);
+        setStatusFlashCard("aberto");
     }
     function abrirResposta() {
-        console.log("flashcards contador: ", contador)
-        setImagemPergunta();
+        setImagemFlashCard();
         setStatusOnClick();
         setTextoPergunta(respostaProp);
-        setBotoes("");
+        setBotoes(true);
     }
 
+
     return (
-        <div className={classePergunta}>
+        <FlashCardStyled
+            statusFlashCard={statusFlashCard}
+            statusResposta={statusResposta}
+            estiloResposta={estiloResposta}>
             <p>{textoPergunta}</p>
             <img onClick={statusOnClick}
-                src={imagemPergunta}
-                alt={imagemPergunta} />
-            <div className={botoes}>
+                src={imagemFlashCard}
+                alt={imagemFlashCard} />
+            <ContainerBotoesStyled botoes={botoes}>
                 <ContainerBotoes
                     setContador={setContador}
                     contador={contador}
-                    setClassePergunta={setClassePergunta}
-                    setImagemPergunta={setImagemPergunta}
+                    setStatusFlashCard={setStatusFlashCard}
+                    setStatusResposta={setStatusResposta}
+                    setImagemFlashCard={setImagemFlashCard}
                     setTextoPergunta={setTextoPergunta}
+                    setEstiloResposta={setEstiloResposta}
                     tituloProp={tituloProp}
                     setBotoes={setBotoes}
                 />
-            </div>
-        </div >
-        //  <div className="pergunta-fechada">
-        //     <p>Pergunta 1</p><img src={seta_play} alt="seta_play" />
+            </ContainerBotoesStyled>
 
-        // </div>
-        // <div className="pergunta-aberta">
-        //     JSX Pergunta aberta<img src={seta_virar} alt="seta_virar" />
-
-        // </div>
-        // <div className="pergunta-aberta">
-        //     Resposta (sem a seta pra virar)
-        //     <div className="container-botoes">
-        //         <button className="botao-errado">Não lembrei</button>
-        //         <button className="botao-quase">Quase não lembrei</button>
-        //         <button className="botao-zap">Zap</button>
-        //     </div>
-
-        // </div>
-        // <div className="pergunta-fechada correta">
-        //     <p>Pergunta 3</p><img src={icone_certo} alt="icone_certo" />
-        // </div>
-        // <div className="pergunta-fechada quase">
-        //     <p>Pergunta 4</p><img src={icone_quase} alt="icone_quase" />
-        // </div>
-        // <div className="pergunta-fechada errada">
-        //     <p>Pergunta 5</p><img src={icone_erro} alt="icone_erro" />
-        // </div> 
+        </FlashCardStyled >
     )
 }
+
+const FlashCardStyled = styled.div`
+    transition: all .5s;
+    width: 300px;
+    margin: 12px;
+    padding: 15px;
+    min-height: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "35px" : "100px")};
+    background: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "#FFFFFF" : "#FFFFD5")}; 
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    position: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "inherit" : "relative")};
+    display: flex;
+    flex-direction: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "none" : "column")}; 
+    align-items: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "center" : "none")}; 
+    justify-content: space-between;
+    p {
+        font-family: 'Recursive';
+        font-style: normal;
+        text-decoration:  ${({ statusResposta }) => (statusResposta === "nao-respondida" ? "none" : "line-through")};
+        font-weight: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "700" : "400")};
+        font-size: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "16px" : "18px")}; 
+        line-height: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "19px" : "22px")}; 
+        color: ${({ estiloResposta }) => estiloResposta};
+    }
+    img {
+        height: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "20px" : "15px")};
+        cursor: pointer;
+        position: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "inherit" : "absolute")}; 
+        bottom: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "inherit" : "10px")}; 
+        right: ${({ statusFlashCard }) => (statusFlashCard === "fechado" ? "inherit" : "10px")};
+    }
+
+`
+const ContainerBotoesStyled = styled.div`
+
+    display: ${({ botoes }) => (botoes ? "flex" : "none")};
+    width: 90%;
+    justify-content: space-between;
+    margin: 0px auto;
+    gap: 10px;
+    
+    button {
+        width: 100px;
+        font-family: 'Recursive';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #FFFFFF;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+        border: none;
+        
+        &:hover{
+            filter: brightness(70%);
+        }    
+    }
+`

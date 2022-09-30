@@ -1,42 +1,71 @@
 import icone_certo from "../assets/img/icone_certo.png"
 import icone_quase from "../assets/img/icone_quase.png"
 import icone_erro from "../assets/img/icone_erro.png"
+import styled from "styled-components"
 
 export default function ContainerBotoes(props) {
-    const { setClassePergunta, setImagemPergunta, setTextoPergunta, setBotoes, tituloProp, setContador, contador } = props
+    const {
+        setImagemFlashCard,
+        setTextoPergunta,
+        setStatusFlashCard,
+        setStatusResposta,
+        setEstiloResposta,
+        setBotoes,
+        tituloProp,
+        setContador,
+        contador
+    } = props
 
-    function marcarResposta(status) {
-        setTextoPergunta(tituloProp)
-        setBotoes("escondido")
-        console.log("container botões: ", contador)
+    function enviarResposta(resposta, booleano) {
+        setTextoPergunta(tituloProp);
+        setBotoes(booleano);
+        setContador(contador + 1);
 
-        switch (status) {
+        switch (resposta) {
             case "errado":
-                setClassePergunta("pergunta-fechada errada")
-                setImagemPergunta(icone_erro)
-                setContador(contador + 1)
+                setEstiloResposta("#FF3030");
+                setImagemFlashCard(icone_erro);
+                setStatusFlashCard("fechado");
+                setStatusResposta("respondida")
                 break;
             case "quase":
-                setClassePergunta("pergunta-fechada quase")
-                setImagemPergunta(icone_quase)
-                setContador(contador + 1)
+                setEstiloResposta("#FF922E");
+                setImagemFlashCard(icone_quase);
+                setStatusFlashCard("fechado");
+                setStatusResposta("respondida")
                 break;
             case "zap":
-                setClassePergunta("pergunta-fechada correta")
-                setImagemPergunta(icone_certo)
-                setContador(contador + 1)
+                setEstiloResposta("#2FBE34");
+                setImagemFlashCard(icone_certo);
+                setStatusFlashCard("fechado");
+                setStatusResposta("respondida")
                 break;
 
             default:
                 break;
         }
     }
-
     return (
-        <div className="container-botoes">
-            <button onClick={() => marcarResposta("errado")} className="botao-errado">Não lembrei</button>
-            <button onClick={() => marcarResposta("quase")} className="botao-quase">Quase não lembrei</button>
-            <button onClick={() => marcarResposta("zap")} className="botao-zap">Zap</button>
-        </div>
+        <>
+            <BotaoErrado onClick={() => enviarResposta("errado", false)} >Não lembrei</BotaoErrado>
+            <BotaoQuase onClick={() => enviarResposta("quase", false)} >Quase não lembrei</BotaoQuase>
+            <BotaoZap onClick={() => enviarResposta("zap", false)} >Zap</BotaoZap>
+        </>
     )
 }
+
+const BotaoErrado = styled.button`
+
+    background: #FF3030;
+
+`
+const BotaoQuase = styled.button`
+
+    background: #FF922E;
+
+`
+const BotaoZap = styled.button`
+
+    background: #2FBE34;
+
+`

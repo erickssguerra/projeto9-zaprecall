@@ -1,19 +1,30 @@
 import { useState } from "react"
 import FooterContainer from "./FooterContainer"
 import LogoContainer from "./LogoContainer"
-import PerguntasContainer from "./PerguntasContainer"
+import FlashCardsContainer from "./FlashCardsContainer"
 import perguntas from "./perguntas"
-
-
+import styled from "styled-components"
 
 export default function ScreenContainer() {
     const [contador, setContador] = useState(0)
-    console.log("contador: ", contador)
     return (
-        <div className="screen-container">
+        <ScreenContainerStyled >
             <LogoContainer />
-            <PerguntasContainer contador={contador} setContador={setContador} />
+            <FlashCardsContainer contador={contador} setContador={setContador} />
             <FooterContainer perguntas={perguntas} contador={contador} />
-        </div>
+        </ScreenContainerStyled>
     )
 }
+
+const ScreenContainerStyled = styled.div`
+
+    background-color: #FB6B6B;
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px;
+    padding: 0px;
+    padding-bottom: 120px;
+`
