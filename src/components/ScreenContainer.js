@@ -25,5 +25,6 @@ const ScreenContainerStyled = styled.div`
     align-items: center;
     margin: 0px;
     padding: 0px;
-    padding-bottom: 120px;
+    padding-bottom: 80px;
+    padding-top: 80px;
 `

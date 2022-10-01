@@ -14,7 +14,14 @@ export default function LogoContainer() {
 const LogoContainerStyled = styled.div`
     display: flex;
     align-items: center;
-    margin: 40px 0 20px 0;
+    position: fixed;
+    justify-content: center;
+    width: 100%;
+    min-height: 80px;
+    background-color: #FB6B6B;
+    box-shadow: none;
+    top: 0;
+
     
     img {
         width: 52px;
